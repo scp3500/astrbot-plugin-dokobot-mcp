@@ -1,0 +1,8 @@
+{
+  "name": "astrbot_plugin_dokobot_mcp",
+  "desc": "一键配置 Dokobot MCP 服务器，让机器人通过真实浏览器搜索网页",
+  "version": "1.0.0",
+  "author": "dokobot",
+  "repo": "https://github.com/dokobot/dokobot-mcp-server",
+  "priority": 10
+}
