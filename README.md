@@ -20,7 +20,7 @@
    npm install -g @dokobot/cli
    ```
 
-2. Chrome 浏览器安装 [Dokobot 扩展](https://dokobot.ai)
+2. Chrome 或 Edge 浏览器安装 [Dokobot 扩展](https://dokobot.ai)
 
 3. 本地 bridge 安装
    ```bash
