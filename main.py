@@ -18,6 +18,10 @@ class DokobotMCPPlugin(Star):
     async def _run_command(self, cmd: list[str], timeout: int = 300) -> tuple[bool, str]:
         """运行命令"""
         try:
+            # Windows 上 npm 命令需要 .cmd 后缀
+            if cmd[0] == "npm" and os.name == "nt":
+                cmd[0] = "npm.cmd"
+
             proc = await asyncio.create_subprocess_exec(
                 *cmd,
                 stdout=asyncio.subprocess.PIPE,
@@ -58,8 +62,9 @@ class DokobotMCPPlugin(Star):
 
         # Windows npm 全局路径
         try:
+            npm_cmd = "npm.cmd" if os.name == "nt" else "npm"
             result = subprocess.run(
-                ["npm", "root", "-g"],
+                [npm_cmd, "root", "-g"],
                 capture_output=True,
                 text=True,
                 timeout=5
@@ -127,7 +132,8 @@ class DokobotMCPPlugin(Star):
         lines = ["Dokobot MCP 状态:\n"]
 
         # 检查 npm 包
-        success, output = await self._run_command(["npm", "list", "-g", "dokobot-mcp-server"], timeout=10)
+        npm_cmd = "npm.cmd" if os.name == "nt" else "npm"
+        success, output = await self._run_command([npm_cmd, "list", "-g", "dokobot-mcp-server"], timeout=10)
         if success:
             lines.append("✓ npm 包: 已安装")
         else:
